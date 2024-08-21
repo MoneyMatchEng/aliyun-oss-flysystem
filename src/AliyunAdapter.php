@@ -119,7 +119,7 @@ class AliyunAdapter implements FilesystemAdapter
     public function writeStream(string $path, $contents, Config $config): void
     {
         try {
-            $this->client->multiuploadFile($this->bucket, $this->prefixer->prefixPath($path), stream_get_meta_data($handle)["uri"], $this->options->mergeConfig($config, $this->visibility));
+            $this->client->multiuploadFile($this->bucket, $this->prefixer->prefixPath($path), $path, $this->options->mergeConfig($config, $this->visibility));
         } catch (OssException $exception) {
             throw UnableToWriteFile::atLocation($path, $exception->getMessage(), $exception);
         }
